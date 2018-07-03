@@ -8,9 +8,10 @@ import java.util.concurrent.ExecutionException;
 public class ServerCompletionHandler implements CompletionHandler<AsynchronousSocketChannel, Server> {
 
     @Override
-    public void completed(AsynchronousSocketChannel asc, Server attachment) {
+    public void completed(AsynchronousSocketChannel asc, Server server) {
         //当有下一个客户端接入的时候 直接调用Server的accept方法，这样反复执行下去，保证多个客户端都可以阻塞
-        attachment.assc.accept(attachment, this);
+        System.out.println(this.getClass().getName() + " completed");
+        server.assc.accept(server, this);
         read(asc);
     }
 

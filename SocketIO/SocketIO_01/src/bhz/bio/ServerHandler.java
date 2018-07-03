@@ -23,11 +23,10 @@ public class ServerHandler implements Runnable {
             out = new PrintWriter(this.socket.getOutputStream(), true);
             String body = null;
             while (true) {
-                out.println("........");
                 body = in.readLine();
                 if (body == null) break;
-                System.out.println("Server :" + body);
-                out.println("服务器端回送响的应数据.");
+                System.out.println("收到数据" + body);
+                out.println("。。。。。。");
             }
         } catch (Exception e) {
             e.printStackTrace();

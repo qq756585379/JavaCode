@@ -63,7 +63,7 @@ public class Server implements Runnable {
                         }
                         //9 写数据
                         if (key.isWritable()) {
-                            //this.write(key); //ssc
+                            this.write(key);
                         }
                     }
                 }
@@ -74,8 +74,8 @@ public class Server implements Runnable {
     }
 
     private void write(SelectionKey key) {
-        //ServerSocketChannel ssc =  (ServerSocketChannel) key.channel();
-        //ssc.register(this.seletor, SelectionKey.OP_WRITE);
+//        ServerSocketChannel ssc =  (ServerSocketChannel) key.channel();
+//        ssc.register(this.seletor, SelectionKey.OP_WRITE);
     }
 
     private void read(SelectionKey key) {

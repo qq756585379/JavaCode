@@ -15,9 +15,9 @@ public class Server {
         try {
             server = new ServerSocket(PROT);
             System.out.println(" server start .. ");
-            //进行阻塞
+            //进行阻塞，当有客户端连接的时候，这边就获取到socket
             Socket socket = server.accept();
-            //新建一个线程执行客户端的任务
+            //启动一个线程执行客户端的任务
             new Thread(new ServerHandler(socket)).start();
 
         } catch (Exception e) {

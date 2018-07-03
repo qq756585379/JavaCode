@@ -24,7 +24,7 @@ public class ServerHandler implements Runnable {
             while (true) {
                 body = in.readLine();
                 if (body == null) break;
-                System.out.println("Server:" + body);
+                System.out.println("接收到:" + body);
                 out.println("Server response");
             }
         } catch (Exception e) {

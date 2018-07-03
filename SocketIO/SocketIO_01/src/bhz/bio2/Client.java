@@ -22,7 +22,7 @@ public class Client {
             out.println("Client request");
 
             String response = in.readLine();
-            System.out.println("Client:" + response);
+            System.out.println("response:" + response);
 
         } catch (Exception e) {
             e.printStackTrace();
