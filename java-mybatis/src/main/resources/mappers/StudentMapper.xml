@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.StudentMapper">
+
+    <resultMap id="BaseResultMap" type="com.pojo.Student">
+        <association property="studentmajor" column="major" select="com.dao.StudentMajorMapper.select"/>
+    </resultMap>
+
+    <!-- 查全部 -->
+    <select id="selectall" resultMap="BaseResultMap">
+        select * from student
+    </select>
+
+    <!-- 根据专业查人员  -->
+    <select id="selectz" parameterType="Integer" resultType="com.pojo.Student">
+        select * from student s where s.major = #{major}
+    </select>
+
+</mapper>

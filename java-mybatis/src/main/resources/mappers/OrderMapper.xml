@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.pojo.Order">
+        <!-- 订单关联用户 -->
+        <association property="user"
+                     column="uid"
+                     select="com.dao.UserMapper.selectByPrimaryKey"/>
+        <collection property="orderItems"
+                    column="ordernum"
+                    select="com.dao.OrderItemMapper.getByOrderNo"/>
+    </resultMap>
+
+    <select id="findOrdersAndOrderDetailResultMap" resultMap="BaseResultMap">
+        SELECT
+        mmall_order.order_no AS ordernum,
+        mmall_order.payment,
+        mmall_order.user_id AS uid
+        FROM mmall_order
+    </select>
+
+</mapper>
