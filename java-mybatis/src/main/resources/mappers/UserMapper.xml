@@ -3,15 +3,41 @@
 
 <mapper namespace="com.dao.UserMapper">
 
-    <sql id="Base_Column_List">
-        id, username, password, email, phone, question, answer, role, create_time, update_time
+    <!-- sql片段内，最好不用将where和select关键字声明在内 -->
+    <sql id="whereClause">
+        <if test="user != null">
+            <if test="user.username != null and user.username != ''">
+                AND username LIKE '%${user.username}%'
+            </if>
+            <if test="user.sex != null and user.sex != ''">
+                AND sex = #{user.sex}
+            </if>
+        </if>
+        <if test="idList != null">
+            AND id IN
+            <foreach collection="idList" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </if>
     </sql>
 
-    <select id="selectByPrimaryKey" resultType="com.pojo.User">
-        select
+    <sql id="Base_Column_List">
+        id,username,birthday,sex,address,password,email,phone,question,answer,role,createTime,updateTime
+    </sql>
+
+    <select id="findUserById" resultType="com.pojo.User">
+        SELECT
         <include refid="Base_Column_List"/>
-        from mmall_user
-        where id = #{id}
+        FROM user WHERE id = #{id}
+    </select>
+
+    <!-- 综合查询，查询用户列表 -->
+    <select id="findUserList" parameterType="com.vo.UserVO" resultType="com.pojo.User">
+        SELECT * FROM user
+        <!-- where标签：默认去掉后面第一个AND，如果没有参数，则把自己干掉 -->
+        <where>
+            <include refid="whereClause"/>
+        </where>
     </select>
 
 </mapper>

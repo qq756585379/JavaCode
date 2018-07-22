@@ -1,12 +1,15 @@
-package com.pojo;
+package com.vo;
 
+import com.pojo.Order;
+import com.pojo.OrderItem;
+import com.pojo.Product;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class OrderItem {
+public class OrderItemVO {
 
     private Integer id;
 
@@ -30,5 +33,9 @@ public class OrderItem {
     private Date createTime;
 
     private Date updateTime;
+
+    private Product product;
+
+    private Order order;
 
 }

@@ -2,22 +2,93 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.dao.OrderMapper">
-    <resultMap id="BaseResultMap" type="com.pojo.Order">
-        <!-- 订单关联用户 -->
-        <association property="user"
-                     column="uid"
-                     select="com.dao.UserMapper.selectByPrimaryKey"/>
-        <collection property="orderItems"
-                    column="ordernum"
-                    select="com.dao.OrderItemMapper.getByOrderNo"/>
+    <!--<resultMap id="BaseResultMap" type="com.pojo.Order">-->
+    <!--&lt;!&ndash; 订单关联用户 &ndash;&gt;-->
+    <!--<association property="user"-->
+    <!--column="uid"-->
+    <!--select="com.dao.UserMapper.selectByPrimaryKey"/>-->
+    <!--<collection property="orderItems"-->
+    <!--column="ordernum"-->
+    <!--select="com.dao.OrderItemMapper.getByOrderNo"/>-->
+    <!--</resultMap>-->
+
+    <resultMap type="com.vo.OrderVO" id="OrderVOResultMap">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="order_no" property="orderNo"/>
+        <!-- 用户信息（一对一） -->
+        <!-- association：一对一关联映射 -->
+        <!-- property：关联信息查询的结果将要映射的扩展类中的对象属性名称 -->
+        <!-- id标签：建议在关联查询时必须写上，不写不会报错，但是会影响性能 -->
+        <association property="user" javaType="com.pojo.User">
+            <id column="user_id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="sex" property="sex"/>
+        </association>
+        <collection property="orderItemVOList" ofType="com.vo.OrderItemVO">
+            <id column="itemId" property="id"/>
+            <result column="order_no" property="orderNo"/>
+            <result column="product_id" property="productId"/>
+            <!-- 商品信息（一对一） -->
+            <association property="product" javaType="com.pojo.Product">
+                <id column="product_id" property="id"/>
+                <result column="pname" property="name"/>
+                <result column="p_price" property="price"/>
+            </association>
+        </collection>
     </resultMap>
 
-    <select id="findOrdersAndOrderDetailResultMap" resultMap="BaseResultMap">
-        SELECT
-        mmall_order.order_no AS ordernum,
-        mmall_order.payment,
-        mmall_order.user_id AS uid
-        FROM mmall_order
+    <!-- 多对多 -->
+    <select id="findOrderVOs" resultMap="OrderVOResultMap">
+    SELECT
+    o.id,
+    o.user_id,
+    o.order_no,
+    u.username,
+    u.sex,
+    order_item.id AS itemId,
+    order_item.order_no,
+    order_item.product_id,
+    product.name AS pname,
+    product.price AS p_price
+    FROM `order` AS o
+    INNER JOIN `user` AS u ON o.user_id = u.id
+    INNER JOIN order_item ON o.order_no = order_item.order_no
+    INNER JOIN product ON order_item.product_id = product.id
     </select>
+
+
+    <!--<resultMap type="com.pojo.User" id="UserAndItemsRstMap">-->
+    <!--&lt;!&ndash; 用户信息 &ndash;&gt;-->
+    <!--<id column="user_id" property="id"/>-->
+    <!--<result column="username" property="username"/>-->
+    <!--<result column="sex" property="sex"/>-->
+    <!--&lt;!&ndash; 订单信息（一对多） &ndash;&gt;-->
+    <!--<collection property="orders" ofType="com.pojo.Orders">-->
+    <!--<id column="id" property="id"/>-->
+    <!--<result column="user_id" property="userId"/>-->
+    <!--<result column="number" property="number"/>-->
+    <!--&lt;!&ndash; 订单明细信息（一对多） &ndash;&gt;-->
+    <!--<collection property="detailList" ofType="com.pojo.Orderdetail">-->
+    <!--<id column="detailId" property="id"/>-->
+    <!--<result column="items_id" property="itemsId"/>-->
+    <!--<result column="items_num" property="itemsNum"/>-->
+    <!--&lt;!&ndash; 商品信息（一对一） &ndash;&gt;-->
+    <!--<association property="items" javaType="com.pojo.Items">-->
+    <!--<id column="items_id" property="id"/>-->
+    <!--<result column="name" property="name"/>-->
+    <!--<result column="price" property="price"/>-->
+    <!--</association>-->
+    <!--</collection>-->
+    <!--</collection>-->
+    <!--</resultMap>-->
+
+    <!--<select id="findOrdersAndOrderDetailResultMap" resultMap="BaseResultMap">-->
+    <!--SELECT-->
+    <!--mmall_order.order_no AS ordernum,-->
+    <!--mmall_order.payment,-->
+    <!--mmall_order.user_id AS uid-->
+    <!--FROM mmall_order-->
+    <!--</select>-->
 
 </mapper>

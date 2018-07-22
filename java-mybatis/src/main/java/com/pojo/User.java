@@ -12,9 +12,11 @@ import java.util.Date;
 @Data
 public class User {
 
-    private Integer id;
-
-    private String username;
+    private int id;
+    private String username;// 用户姓名
+    private String birthday;// 生日
+    private String sex;// 性别
+    private String address;// 地址
 
     private String password;
 
@@ -31,5 +33,4 @@ public class User {
     private Date createTime;
 
     private Date updateTime;
-
 }

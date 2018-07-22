@@ -13,6 +13,8 @@ public class Order {
 
     private Long orderNo;
 
+    private Integer userId;
+
     private Integer shippingId;
 
     private BigDecimal payment;
@@ -34,8 +36,4 @@ public class Order {
     private Date createTime;
 
     private Date updateTime;
-
-    private List<OrderItem> orderItems;
-
-    private User user;
 }

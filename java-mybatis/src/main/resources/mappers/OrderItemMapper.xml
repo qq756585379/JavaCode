@@ -7,11 +7,109 @@
       total_price, create_time, update_time, user_id
     </sql>
 
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.pojo.OrderItem">
+        select * from order_item where id = #{id}
+    </select>
+
     <select id="getByOrderNo" resultType="com.pojo.OrderItem">
         SELECT
         <include refid="Base_Column_List"/>
-        from mmall_order_item
+        from order_item
         where order_no = #{orderNo}
     </select>
+
+    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+    <!--delete from items where id = #{id}-->
+    <!--</delete>-->
+
+    <!--<insert id="insert" parameterType="com.pojo.Items">-->
+    <!--insert into items (id, name, price, pic, createtime, updateTime, detail)-->
+    <!--values (#{id}, #{name}, #{price}, #{pic}, now(), now(), #{detail})-->
+    <!--</insert>-->
+
+    <!--<insert id="insertSelective" parameterType="com.pojo.Items">-->
+    <!--insert into items-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+    <!--<if test="id != null">-->
+    <!--id,-->
+    <!--</if>-->
+    <!--<if test="name != null">-->
+    <!--name,-->
+    <!--</if>-->
+    <!--<if test="price != null">-->
+    <!--price,-->
+    <!--</if>-->
+    <!--<if test="pic != null">-->
+    <!--pic,-->
+    <!--</if>-->
+    <!--<if test="createTime != null">-->
+    <!--createTime,-->
+    <!--</if>-->
+    <!--<if test="detail != null">-->
+    <!--detail-->
+    <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
+    <!--<if test="id != null">-->
+    <!--#{id},-->
+    <!--</if>-->
+    <!--<if test="name != null">-->
+    <!--#{name},-->
+    <!--</if>-->
+    <!--<if test="price != null">-->
+    <!--#{price},-->
+    <!--</if>-->
+    <!--<if test="pic != null">-->
+    <!--#{pic},-->
+    <!--</if>-->
+    <!--<if test="createtime != null">-->
+    <!--#{createtime},-->
+    <!--</if>-->
+    <!--<if test="detail != null">-->
+    <!--#{detail}-->
+    <!--</if>-->
+    <!--</trim>-->
+    <!--</insert>-->
+
+    <!--<update id="updateByPrimaryKeySelective" parameterType="com.pojo.Items">-->
+    <!--update items-->
+    <!--<set>-->
+    <!--<if test="name != null">-->
+    <!--name = #{name},-->
+    <!--</if>-->
+    <!--<if test="price != null">-->
+    <!--price = #{price},-->
+    <!--</if>-->
+    <!--<if test="pic != null">-->
+    <!--pic = #{pic},-->
+    <!--</if>-->
+    <!--<if test="createtime != null">-->
+    <!--createtime = #{createtime},-->
+    <!--</if>-->
+    <!--<if test="detail != null">-->
+    <!--detail = #{detail}-->
+    <!--</if>-->
+    <!--</set>-->
+    <!--where id = #{id}-->
+    <!--</update>-->
+
+    <!--<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pojo.Items">-->
+    <!--update items-->
+    <!--set name = #{name},-->
+    <!--price = #{price},-->
+    <!--pic = #{pic},-->
+    <!--createTime = #{createtime},-->
+    <!--detail = #{detail}-->
+    <!--where id = #{id}-->
+    <!--</update>-->
+
+    <!--<update id="updateByPrimaryKey" parameterType="com.pojo.Items">-->
+    <!--update items-->
+    <!--set name = #{name},-->
+    <!--price = #{price},-->
+    <!--pic = #{pic},-->
+    <!--createtime = #{createtime}-->
+    <!--where id = #{id}-->
+    <!--</update>-->
 
 </mapper>
