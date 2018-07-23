@@ -2,61 +2,156 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.dao.OrderMapper">
-    <!--<resultMap id="BaseResultMap" type="com.pojo.Order">-->
-    <!--&lt;!&ndash; 订单关联用户 &ndash;&gt;-->
-    <!--<association property="user"-->
-    <!--column="uid"-->
-    <!--select="com.dao.UserMapper.selectByPrimaryKey"/>-->
-    <!--<collection property="orderItems"-->
-    <!--column="ordernum"-->
-    <!--select="com.dao.OrderItemMapper.getByOrderNo"/>-->
-    <!--</resultMap>-->
 
-    <resultMap type="com.vo.OrderVO" id="OrderVOResultMap">
+    <resultMap id="BaseResultMap" type="com.vo.OrderVO">
         <id column="id" property="id"/>
-        <result column="user_id" property="userId"/>
-        <result column="order_no" property="orderNo"/>
-        <!-- 用户信息（一对一） -->
-        <!-- association：一对一关联映射 -->
-        <!-- property：关联信息查询的结果将要映射的扩展类中的对象属性名称 -->
-        <!-- id标签：建议在关联查询时必须写上，不写不会报错，但是会影响性能 -->
-        <association property="user" javaType="com.pojo.User">
-            <id column="user_id" property="id"/>
-            <result column="username" property="username"/>
-            <result column="sex" property="sex"/>
-        </association>
-        <collection property="orderItemVOList" ofType="com.vo.OrderItemVO">
-            <id column="itemId" property="id"/>
-            <result column="order_no" property="orderNo"/>
-            <result column="product_id" property="productId"/>
-            <!-- 商品信息（一对一） -->
-            <association property="product" javaType="com.pojo.Product">
-                <id column="product_id" property="id"/>
-                <result column="pname" property="name"/>
-                <result column="p_price" property="price"/>
-            </association>
-        </collection>
+        <result column="userId" property="userId"/>
+        <result column="orderNo" property="orderNo"/>
+        <association property="user"
+                     column="userId"
+                     select="com.dao.UserMapper.findUserById"/>
+        <collection property="orderItemVOList"
+                    column="orderNo"
+                    select="com.dao.OrderItemMapper.getByOrderNo"/>
     </resultMap>
 
-    <!-- 多对多 -->
-    <select id="findOrderVOs" resultMap="OrderVOResultMap">
-    SELECT
-    o.id,
-    o.user_id,
-    o.order_no,
-    u.username,
-    u.sex,
-    order_item.id AS itemId,
-    order_item.order_no,
-    order_item.product_id,
-    product.name AS pname,
-    product.price AS p_price
-    FROM `order` AS o
-    INNER JOIN `user` AS u ON o.user_id = u.id
-    INNER JOIN order_item ON o.order_no = order_item.order_no
-    INNER JOIN product ON order_item.product_id = product.id
+    <select id="findOrderVOList" resultMap="BaseResultMap">
+      SELECT
+      t_order.id,
+      t_order.user_id AS userId,
+      t_order.order_no AS orderNo
+      FROM t_order
     </select>
 
+
+    <!-- 一对一映射之resultType -->
+    <select id="findOrdersAndUser" resultType="com.vo.OrderVO">
+    SELECT
+    t_order.id,
+    t_order.user_id AS userId
+    FROM t_order
+    INNER JOIN t_user
+    WHERE t_order.user_id = t_user.id
+    </select>
+
+    <select id="findOrders" resultType="com.pojo.Order">
+        SELECT
+        *
+        FROM t_order
+    </select>
+
+    <select id="findOrderByOrderNo" resultType="com.vo.OrderVO">
+        SELECT
+        *
+        FROM t_order
+        WHERE order_no = #{orderNo}
+    </select>
+
+    <select id="findOrderVO" resultType="com.pojo.Order">
+        SELECT
+        id,
+        order_no AS orderNo
+        FROM t_order
+    </select>
+
+
+    <!--<resultMap id="BaseResultMap" type="com.vo.OrderVO">-->
+    <!--<association property="user" column="user_id" javaType="com.pojo.User"-->
+    <!--select="com.dao.UserMapper.findUserById"/>-->
+    <!--&lt;!&ndash;<collection property="orderItemVOList" column="order_no"&ndash;&gt;-->
+    <!--&lt;!&ndash;select="com.dao.OrderItemMapper.getByOrderNo"/>&ndash;&gt;-->
+    <!--</resultMap>-->
+
+    <!--<select id="findOrderVO" resultMap="BaseResultMap">-->
+    <!--SELECT o.user_id AS user_id-->
+    <!--FROM t_order AS o-->
+    <!--</select>-->
+
+    <!--<resultMap type="com.vo.OrderVO" id="OrderVOResultMap">-->
+    <!--<id column="id" property="id"/>-->
+    <!--<result column="user_id" property="userId"/>-->
+    <!--<result column="order_no" property="orderNo"/>-->
+    <!--&lt;!&ndash; 用户信息（一对一） &ndash;&gt;-->
+    <!--&lt;!&ndash; association：一对一关联映射 &ndash;&gt;-->
+    <!--&lt;!&ndash; property：关联信息查询的结果将要映射的扩展类中的对象属性名称 &ndash;&gt;-->
+    <!--&lt;!&ndash; id标签：建议在关联查询时必须写上，不写不会报错，但是会影响性能 &ndash;&gt;-->
+    <!--<association property="user" javaType="com.pojo.User">-->
+    <!--<id column="user_id" property="id"/>-->
+    <!--<result column="username" property="username"/>-->
+    <!--<result column="sex" property="sex"/>-->
+    <!--</association>-->
+    <!--<collection property="orderItemVOList" ofType="com.vo.OrderItemVO">-->
+    <!--<id column="itemId" property="id"/>-->
+    <!--<result column="order_no" property="orderNo"/>-->
+    <!--<result column="product_id" property="productId"/>-->
+    <!--&lt;!&ndash; 商品信息（一对一） &ndash;&gt;-->
+    <!--<association property="product" javaType="com.pojo.Product">-->
+    <!--<id column="product_id" property="id"/>-->
+    <!--<result column="pname" property="name"/>-->
+    <!--<result column="p_price" property="price"/>-->
+    <!--</association>-->
+    <!--</collection>-->
+    <!--</resultMap>-->
+
+    <!--&lt;!&ndash; 多对多 &ndash;&gt;-->
+    <!--<select id="findOrderVOs" resultMap="OrderVOResultMap">-->
+    <!--SELECT-->
+    <!--o.id,-->
+    <!--o.user_id,-->
+    <!--o.order_no,-->
+    <!--u.username,-->
+    <!--u.sex,-->
+    <!--order_item.id AS itemId,-->
+    <!--order_item.order_no,-->
+    <!--order_item.product_id,-->
+    <!--product.name AS pname,-->
+    <!--product.price AS p_price-->
+    <!--FROM `order` AS o-->
+    <!--INNER JOIN `user` AS u ON o.user_id = u.id-->
+    <!--INNER JOIN order_item ON o.order_no = order_item.order_no-->
+    <!--INNER JOIN product ON order_item.product_id = product.id-->
+    <!--</select>-->
+
+    <!--<resultMap type="com.vo.UserVO" id="UserAndItemsRstMap">-->
+    <!--<id column="user_id" property="id"/>-->
+    <!--<result column="username" property="username"/>-->
+    <!--<result column="sex" property="sex"/>-->
+    <!--&lt;!&ndash; 订单信息（一对多） &ndash;&gt;-->
+    <!--<collection property="orderVOS" ofType="com.vo.OrderVO">-->
+    <!--<id column="id" property="id"/>-->
+    <!--<result column="user_id" property="userId"/>-->
+    <!--<result column="order_no" property="orderNo"/>-->
+    <!--&lt;!&ndash; 订单明细信息（一对多） &ndash;&gt;-->
+    <!--<collection property="orderItemVOList" ofType="com.vo.OrderItemVO">-->
+    <!--<id column="itemId" property="id"/>-->
+    <!--<result column="order_no" property="orderNo"/>-->
+    <!--<result column="user_id" property="userId"/>-->
+    <!--&lt;!&ndash; 商品信息（一对一） &ndash;&gt;-->
+    <!--<association property="product" javaType="com.pojo.Product">-->
+    <!--<id column="product_id" property="id"/>-->
+    <!--<result column="name" property="name"/>-->
+    <!--<result column="price" property="price"/>-->
+    <!--</association>-->
+    <!--</collection>-->
+    <!--</collection>-->
+    <!--</resultMap>-->
+
+    <!--<select id="findUserVOs" resultMap="UserAndItemsRstMap">-->
+    <!--SELECT-->
+    <!--o.id,-->
+    <!--o.user_id,-->
+    <!--o.order_no,-->
+    <!--u.username,-->
+    <!--u.sex,-->
+    <!--order_item.id AS itemId,-->
+    <!--order_item.product_id,-->
+    <!--product.name AS pname,-->
+    <!--product.price AS p_price-->
+    <!--FROM user AS u,`order` AS o,order_item,product-->
+    <!--WHERE o.`user_id` = u.`id`-->
+    <!--AND o.`order_no` = order_item.order_no-->
+    <!--AND product.`id` = order_item.product_id-->
+    <!--</select>-->
 
     <!--<resultMap type="com.pojo.User" id="UserAndItemsRstMap">-->
     <!--&lt;!&ndash; 用户信息 &ndash;&gt;-->

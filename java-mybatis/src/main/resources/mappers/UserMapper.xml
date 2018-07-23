@@ -28,7 +28,7 @@
     <select id="findUserById" resultType="com.pojo.User">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM user WHERE id = #{id}
+        FROM t_user WHERE id = #{id}
     </select>
 
     <!-- 综合查询，查询用户列表 -->

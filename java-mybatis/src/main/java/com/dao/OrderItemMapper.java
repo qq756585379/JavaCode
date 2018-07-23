@@ -5,12 +5,12 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-
 public interface OrderItemMapper {
 
     OrderItem selectByPrimaryKey(Integer id);
 
     List<OrderItem> getByOrderNo(@Param("orderNo") Long orderNo);
+
 
     // int insert(Items record);
     //
