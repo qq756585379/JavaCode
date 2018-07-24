@@ -14,17 +14,17 @@
      http://www.springframework.org/schema/task
      http://www.springframework.org/schema/task/spring-task.xsd">
 
+    <context:property-placeholder location="classpath*:datasource.properties"/>
+
+    <!--<context:property-placeholder ignore-unresolvable="true"-->
+                                  <!--ignore-resource-not-found="true"-->
+                                  <!--file-encoding="UTF-8"-->
+                                  <!--location="classpath:datasource.properties"/>-->
+
     <!--扫描所有的bean,排除Controller注解，Controller交给springMVC扫描-->
     <context:component-scan base-package="com" annotation-config="true">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
-
-    <aop:aspectj-autoproxy/>
-
-    <context:property-placeholder location="classpath:datasource.properties"/>
-
-    <!-- spring schedule的时候新增的 -->
-    <task:annotation-driven/>
 
     <import resource="applicationContext-datasource.xml"/>
 </beans>

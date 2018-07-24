@@ -11,21 +11,21 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:applicationContext-test.xml"})
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class DaoTest2 {
 
     private ApplicationContext applicationContext;
 
     @Before
     public void setUp() throws Exception {
-        applicationContext = new ClassPathXmlApplicationContext("applicationContext-test.xml");
+        applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
     }
 
     @Test
     public void testFindUserById() throws Exception {
         // 创建UserDao
         UserMapper impl = (UserMapper) applicationContext.getBean("userMapper");
-        User user = impl.findUserById(1);
-        System.out.println(user);
+        // User user = impl.findUserById(1);
+        // System.out.println(user);
     }
 }
