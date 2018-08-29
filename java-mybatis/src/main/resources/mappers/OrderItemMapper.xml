@@ -1,115 +1,111 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dao.OrderItemMapper">
+<mapper namespace="com.yang.dao.OrderItemMapper">
 
     <sql id="Base_Column_List">
       id, order_no, product_id, product_name, product_image, current_unit_price, quantity,
       total_price, create_time, update_time, user_id
     </sql>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.pojo.OrderItem">
-        select * from order_item where id = #{id}
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.yang.pojo.OrderItem">
+        select * from t_order_item where id = #{id}
     </select>
 
-    <select id="getByOrderNo" resultType="com.pojo.OrderItem">
+    <resultMap id="BaseResultMap" type="com.yang.vo.OrderItemVO">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="order_no" property="orderNo"/>
+        <association property="user" column="user_id" select="com.yang.dao.UserMapper.findUserById"/>
+        <collection property="order" column="order_no" select="com.yang.dao.OrderMapper.selectByOrderNo"/>
+    </resultMap>
+
+    <select id="getOrderItemVOListsByOrderNo" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM order_item
+        FROM t_order_item
         WHERE order_no = #{orderNo}
     </select>
 
-    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
-    <!--delete from items where id = #{id}-->
-    <!--</delete>-->
+    <select id="getOrderItemListsByOrderNo" resultType="com.yang.pojo.OrderItem">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_order_item
+        WHERE order_no = #{orderNo}
+    </select>
 
-    <!--<insert id="insert" parameterType="com.pojo.Items">-->
-    <!--insert into items (id, name, price, pic, createtime, updateTime, detail)-->
-    <!--values (#{id}, #{name}, #{price}, #{pic}, now(), now(), #{detail})-->
-    <!--</insert>-->
+    <insert id="insertSelective" parameterType="com.yang.pojo.OrderItem">
+        insert into items
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="detail != null">
+                detail
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="price != null">
+                #{price},
+            </if>
+            <if test="pic != null">
+                #{pic},
+            </if>
+            <if test="createtime != null">
+                #{createtime},
+            </if>
+            <if test="detail != null">
+                #{detail}
+            </if>
+        </trim>
+    </insert>
 
-    <!--<insert id="insertSelective" parameterType="com.pojo.Items">-->
-    <!--insert into items-->
-    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
-    <!--<if test="id != null">-->
-    <!--id,-->
-    <!--</if>-->
-    <!--<if test="name != null">-->
-    <!--name,-->
-    <!--</if>-->
-    <!--<if test="price != null">-->
-    <!--price,-->
-    <!--</if>-->
-    <!--<if test="pic != null">-->
-    <!--pic,-->
-    <!--</if>-->
-    <!--<if test="createTime != null">-->
-    <!--createTime,-->
-    <!--</if>-->
-    <!--<if test="detail != null">-->
-    <!--detail-->
-    <!--</if>-->
-    <!--</trim>-->
-    <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
-    <!--<if test="id != null">-->
-    <!--#{id},-->
-    <!--</if>-->
-    <!--<if test="name != null">-->
-    <!--#{name},-->
-    <!--</if>-->
-    <!--<if test="price != null">-->
-    <!--#{price},-->
-    <!--</if>-->
-    <!--<if test="pic != null">-->
-    <!--#{pic},-->
-    <!--</if>-->
-    <!--<if test="createtime != null">-->
-    <!--#{createtime},-->
-    <!--</if>-->
-    <!--<if test="detail != null">-->
-    <!--#{detail}-->
-    <!--</if>-->
-    <!--</trim>-->
-    <!--</insert>-->
+    <update id="updateByPrimaryKeySelective" parameterType="com.yang.pojo.OrderItem">
+        update items
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="pic != null">
+                pic = #{pic},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime},
+            </if>
+            <if test="detail != null">
+                detail = #{detail}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
-    <!--<update id="updateByPrimaryKeySelective" parameterType="com.pojo.Items">-->
-    <!--update items-->
-    <!--<set>-->
-    <!--<if test="name != null">-->
-    <!--name = #{name},-->
-    <!--</if>-->
-    <!--<if test="price != null">-->
-    <!--price = #{price},-->
-    <!--</if>-->
-    <!--<if test="pic != null">-->
-    <!--pic = #{pic},-->
-    <!--</if>-->
-    <!--<if test="createtime != null">-->
-    <!--createtime = #{createtime},-->
-    <!--</if>-->
-    <!--<if test="detail != null">-->
-    <!--detail = #{detail}-->
-    <!--</if>-->
-    <!--</set>-->
-    <!--where id = #{id}-->
-    <!--</update>-->
-
-    <!--<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pojo.Items">-->
-    <!--update items-->
-    <!--set name = #{name},-->
-    <!--price = #{price},-->
-    <!--pic = #{pic},-->
-    <!--createTime = #{createtime},-->
-    <!--detail = #{detail}-->
-    <!--where id = #{id}-->
-    <!--</update>-->
-
-    <!--<update id="updateByPrimaryKey" parameterType="com.pojo.Items">-->
-    <!--update items-->
-    <!--set name = #{name},-->
-    <!--price = #{price},-->
-    <!--pic = #{pic},-->
-    <!--createtime = #{createtime}-->
-    <!--where id = #{id}-->
-    <!--</update>-->
+    <update id="updateByPrimaryKey" parameterType="com.yang.pojo.OrderItem">
+        update items
+        set name = #{name},
+        price = #{price},
+        pic = #{pic},
+        createtime = #{createtime}
+        where id = #{id}
+    </update>
 
 </mapper>

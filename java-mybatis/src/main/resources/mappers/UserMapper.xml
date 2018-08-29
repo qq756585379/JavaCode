@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.dao.UserMapper">
+<mapper namespace="com.yang.dao.UserMapper">
 
     <!-- sql片段内，最好不用将where和select关键字声明在内 -->
     <sql id="whereClause">
@@ -25,19 +25,61 @@
         id,username,birthday,sex,address,password,email,phone,question,answer,role,createTime,updateTime
     </sql>
 
-    <select id="findUserById" resultType="com.pojo.User">
+    <select id="findUserById" resultType="com.yang.pojo.User">
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_user WHERE id = #{id}
     </select>
 
     <!-- 综合查询，查询用户列表 -->
-    <select id="findUserList" parameterType="com.vo.UserVO" resultType="com.pojo.User">
+    <select id="findUserList" parameterType="com.yang.vo.UserVO" resultType="com.yang.pojo.User">
         SELECT * FROM user
         <!-- where标签：默认去掉后面第一个AND，如果没有参数，则把自己干掉 -->
         <where>
             <include refid="whereClause"/>
         </where>
+    </select>
+
+
+    <resultMap type="com.yang.vo.UserVO" id="UserAndItemsRstMap">
+        <id column="user_id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="sex" property="sex"/>
+        <!-- 订单信息（一对多） -->
+        <collection property="orderVOS" ofType="com.yang.vo.OrderVO">
+            <id column="id" property="id"/>
+            <result column="user_id" property="userId"/>
+            <result column="order_no" property="orderNo"/>
+            <!-- 订单明细信息（一对多） -->
+            <collection property="orderItemVOList" ofType="com.yang.vo.OrderItemVO">
+                <id column="itemId" property="id"/>
+                <result column="order_no" property="orderNo"/>
+                <result column="user_id" property="userId"/>
+                <!-- 商品信息（一对一） -->
+                <association property="product" javaType="com.yang.pojo.Product">
+                    <id column="product_id" property="id"/>
+                    <result column="name" property="name"/>
+                    <result column="price" property="price"/>
+                </association>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="findUserAndItemsRst" resultMap="UserAndItemsRstMap">
+        SELECT
+        t_order.id,
+        t_order.user_id,
+        t_order.order_no,
+        t_user.username,
+        t_user.sex,
+        t_order_item.id AS itemId,
+        t_order_item.product_id,
+        t_product.name,
+        t_product.price
+        FROM t_user, t_order, t_order_item, t_product
+        WHERE t_order.user_id = t_user.id
+        AND t_order.order_no = t_order_item.order_no
+        AND t_product.id = t_order_item.product_id
     </select>
 
 </mapper>

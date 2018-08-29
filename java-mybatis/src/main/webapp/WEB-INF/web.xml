@@ -6,6 +6,11 @@
 
     <display-name>Archetype Created Web Application</display-name>
 
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/applicationContext.xml</param-value>
+    </context-param>
+
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -33,13 +38,6 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>
-            classpath:applicationContext.xml
-        </param-value>
-    </context-param>
-
     <!--
     load-on-startup为0或大于0，在web容器初始化的时候会初始化dispatcher，当小于0或者不指定的话只有在使用的时候才去加载dispatcher
     load-on-startup表示优先级和启动顺序
@@ -47,12 +45,15 @@
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/spring-mvc.xml</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <!-- 兼容restfull -->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 

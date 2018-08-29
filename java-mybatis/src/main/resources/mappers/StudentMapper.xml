@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.dao.StudentMapper">
+<mapper namespace="com.yang.dao.StudentMapper">
 
-    <resultMap id="BaseResultMap" type="com.pojo.Student">
+    <resultMap id="BaseResultMap" type="com.yang.pojo.Student">
         <association property="studentmajor" column="major" select="com.dao.StudentMajorMapper.select"/>
     </resultMap>
 
@@ -13,7 +13,7 @@
     </select>
 
     <!-- 根据专业查人员  -->
-    <select id="selectz" parameterType="Integer" resultType="com.pojo.Student">
+    <select id="selectz" parameterType="Integer" resultType="com.yang.pojo.Student">
         select * from student s where s.major = #{major}
     </select>
 
