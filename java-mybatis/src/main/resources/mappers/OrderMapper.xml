@@ -13,15 +13,20 @@
     </resultMap>
 
     <select id="findOrderVOByOrderNo" resultMap="BaseResultMap">
-        SELECT * FROM t_order WHERE order_no = #{orderNo}
+        SELECT *
+        FROM t_order
+        WHERE order_no = #{orderNo}
     </select>
 
     <select id="findOrderVOList" resultMap="BaseResultMap">
-      SELECT * FROM t_order
+        SELECT *
+        FROM t_order
     </select>
 
     <select id="selectByOrderNo" resultType="com.yang.pojo.Order">
-        SELECT * FROM t_order WHERE order_no = #{orderNo}
+        SELECT *
+        FROM t_order
+        WHERE order_no = #{orderNo}
     </select>
 
 
@@ -51,20 +56,20 @@
     </resultMap>
 
     <select id="findOrderVOList2" resultMap="OrderVOResultMap">
-    SELECT
-    t_order.id,
-    t_order.user_id,
-    t_order.order_no,
-    t_user.username,
-    t_user.sex,
-    t_order_item.id AS itemId,
-    t_order_item.product_id,
-    t_product.name,
-    t_product.price
-    FROM t_user, t_order, t_order_item, t_product
-    WHERE t_order.user_id = t_user.id
-    AND t_order.order_no = t_order_item.order_no
-    AND t_product.id = t_order_item.product_id
+        SELECT
+            t_order.id,
+            t_order.user_id,
+            t_order.order_no,
+            t_user.username,
+            t_user.sex,
+            t_order_item.id AS itemId,
+            t_order_item.product_id,
+            t_product.name,
+            t_product.price
+        FROM t_user, t_order, t_order_item, t_product
+        WHERE t_order.user_id = t_user.id
+              AND t_order.order_no = t_order_item.order_no
+              AND t_product.id = t_order_item.product_id
     </select>
 
 </mapper>
