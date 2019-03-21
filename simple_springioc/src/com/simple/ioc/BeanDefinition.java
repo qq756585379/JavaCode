@@ -6,28 +6,20 @@ import java.util.Map;
 
 public class BeanDefinition {
 
-    private String id;
+    private String beanId;
 
-    private String beanName;
+    private String beanClassName;
 
     private List<Map<String, String>> propertyList = new ArrayList<>();
 
     private Class<?> beanClass;
 
-    public String getId() {
-        return id;
+    public String getBeanId() {
+        return beanId;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getBeanName() {
-        return beanName;
-    }
-
-    public void setBeanName(String beanName) {
-        this.beanName = beanName;
+    public void setBeanId(String beanId) {
+        this.beanId = beanId;
     }
 
     public List<Map<String, String>> getPropertyList() {
@@ -44,5 +36,13 @@ public class BeanDefinition {
 
     public void setBeanClass(Class<?> beanClass) {
         this.beanClass = beanClass;
+    }
+
+    public String getBeanClassName() {
+        return beanClassName;
+    }
+
+    public void setBeanClassName(String beanClassName) {
+        this.beanClassName = beanClassName;
     }
 }

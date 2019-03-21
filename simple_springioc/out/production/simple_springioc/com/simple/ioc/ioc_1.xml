@@ -1,0 +1,12 @@
+<beans>
+    <bean id="user" class="com.simple.ioc.User">
+        <property name="id" value="u_1001"/>
+        <property name="name" value="吴蓓蓓"/>
+        <property name="age" value="15"/>
+        <property name="role" ref="role"/>
+    </bean>
+    <bean id="role" class="com.simple.ioc.Role">
+        <property name="id" value="r_2001"/>
+        <property name="name" value="管理员"/>
+    </bean>
+</beans>
