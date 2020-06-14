@@ -58,6 +58,7 @@ public class NettyServer implements ApplicationContextAware, InitializingBean {
 
     public void start() {
         final NettyServerHandler handler = new NettyServerHandler(serviceMap);
+
         new Thread(() -> {
             try {
                 ServerBootstrap bootstrap = new ServerBootstrap();

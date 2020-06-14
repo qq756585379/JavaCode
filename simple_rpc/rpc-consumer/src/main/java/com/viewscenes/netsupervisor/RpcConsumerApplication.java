@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RpcConsumerApplication {
 
 	public static void main(String[] args) {
+		Double
 		SpringApplication.run(RpcConsumerApplication.class, args);
 	}
 }

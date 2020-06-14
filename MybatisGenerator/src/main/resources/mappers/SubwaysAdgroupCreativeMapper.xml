@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mall.portal.dao.SubwaysAdgroupCreativeMapper" >
+  <resultMap id="BaseResultMap" type="com.mall.portal.pojo.SubwaysAdgroupCreative" >
+    <constructor >
+      <arg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="creative_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="adgroup_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="img_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="audit_status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="audit_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="img_type" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="second_img_origin_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="start_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="end_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="platform_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="nick" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="retry" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.mall.portal.pojo.SubwaysAdgroupCreative" >
+    insert into subways_adgroup_creative (id, creative_id, adgroup_id, 
+      title, img_url, audit_status, 
+      audit_desc, create_time, modified_time, 
+      img_type, second_img_origin_url, status, 
+      start_time, end_time, platform_type, 
+      nick, retry)
+    values (#{id,jdbcType=BIGINT}, #{creativeId,jdbcType=BIGINT}, #{adgroupId,jdbcType=BIGINT}, 
+      #{title,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{auditStatus,jdbcType=VARCHAR}, 
+      #{auditDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}, 
+      #{imgType,jdbcType=BIT}, #{secondImgOriginUrl,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{platformType,jdbcType=VARCHAR}, 
+      #{nick,jdbcType=VARCHAR}, #{retry,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mall.portal.pojo.SubwaysAdgroupCreative" >
+    insert into subways_adgroup_creative
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="creativeId != null" >
+        creative_id,
+      </if>
+      <if test="adgroupId != null" >
+        adgroup_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+      <if test="auditDesc != null" >
+        audit_desc,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+      <if test="imgType != null" >
+        img_type,
+      </if>
+      <if test="secondImgOriginUrl != null" >
+        second_img_origin_url,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="platformType != null" >
+        platform_type,
+      </if>
+      <if test="nick != null" >
+        nick,
+      </if>
+      <if test="retry != null" >
+        retry,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="creativeId != null" >
+        #{creativeId,jdbcType=BIGINT},
+      </if>
+      <if test="adgroupId != null" >
+        #{adgroupId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDesc != null" >
+        #{auditDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgType != null" >
+        #{imgType,jdbcType=BIT},
+      </if>
+      <if test="secondImgOriginUrl != null" >
+        #{secondImgOriginUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformType != null" >
+        #{platformType,jdbcType=VARCHAR},
+      </if>
+      <if test="nick != null" >
+        #{nick,jdbcType=VARCHAR},
+      </if>
+      <if test="retry != null" >
+        #{retry,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

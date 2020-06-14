@@ -39,7 +39,6 @@ public class ServiceDiscovery {
     }
 
     private ZkClient connectServer() {
-        Proxy.newProxyInstance()
         return new ZkClient(registryAddress, 20000, 20000);
     }
 

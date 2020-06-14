@@ -26,15 +26,16 @@ public class ServiceRegistry {
             }
         }
     }
+
     private ZkClient connectServer() {
-        return new ZkClient(registryAddress,20000,20000);
+        return new ZkClient(registryAddress, 20000, 20000);
     }
 
-    private void AddRootNode(ZkClient client){
+    private void AddRootNode(ZkClient client) {
         boolean exists = client.exists(ZK_REGISTRY_PATH);
-        if (!exists){
+        if (!exists) {
             client.createPersistent(ZK_REGISTRY_PATH);
-            logger.info("创建zookeeper主节点 {}",ZK_REGISTRY_PATH);
+            logger.info("创建zookeeper主节点 {}", ZK_REGISTRY_PATH);
         }
     }
 

@@ -51,8 +51,8 @@ public class ConnectManage {
         }
 
         HashSet<SocketAddress> newAllServerNodeSet = new HashSet<>();
-        for (int i = 0; i < addressList.size(); ++i) {
-            String[] array = addressList.get(i).split(":");
+        for (String anAddressList : addressList) {
+            String[] array = anAddressList.split(":");
             if (array.length == 2) {
                 String host = array[0];
                 int port = Integer.parseInt(array[1]);

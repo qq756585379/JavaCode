@@ -14,6 +14,11 @@ public class TestTemplate {
 
         Tea tea = new Tea();
         tea.create();
+
+
+        Integer a =null;
+        Integer b = a/100;
+
     }
 
     //SpringJDBC
