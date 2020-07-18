@@ -7,10 +7,6 @@
       total_price, create_time, update_time, user_id
     </sql>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.yang.pojo.OrderItem">
-        select * from t_order_item where id = #{id}
-    </select>
-
     <resultMap id="BaseResultMap" type="com.yang.vo.OrderItemVO">
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
@@ -20,13 +16,6 @@
     </resultMap>
 
     <select id="getOrderItemVOListsByOrderNo" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM t_order_item
-        WHERE order_no = #{orderNo}
-    </select>
-
-    <select id="getOrderItemListsByOrderNo" resultType="com.yang.pojo.OrderItem">
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_order_item
@@ -96,15 +85,6 @@
                 detail = #{detail}
             </if>
         </set>
-        where id = #{id}
-    </update>
-
-    <update id="updateByPrimaryKey" parameterType="com.yang.pojo.OrderItem">
-        update items
-        set name = #{name},
-        price = #{price},
-        pic = #{pic},
-        createtime = #{createtime}
         where id = #{id}
     </update>
 

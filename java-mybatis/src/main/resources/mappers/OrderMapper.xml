@@ -8,8 +8,7 @@
         <result column="user_id" property="userId"/>
         <result column="order_no" property="orderNo"/>
         <association property="user" column="user_id" select="com.yang.dao.UserMapper.findUserById"/>
-        <collection property="orderItemVOList" column="order_no"
-                    select="com.yang.dao.OrderItemMapper.getOrderItemVOListsByOrderNo"/>
+        <collection property="orderItemVOList" column="order_no" select="com.yang.dao.OrderItemMapper.getOrderItemVOListsByOrderNo"/>
     </resultMap>
 
     <select id="findOrderVOByOrderNo" resultMap="BaseResultMap">
@@ -22,13 +21,6 @@
         SELECT *
         FROM t_order
     </select>
-
-    <select id="selectByOrderNo" resultType="com.yang.pojo.Order">
-        SELECT *
-        FROM t_order
-        WHERE order_no = #{orderNo}
-    </select>
-
 
     <resultMap type="com.yang.vo.OrderVO" id="OrderVOResultMap">
         <id column="id" property="id"/>

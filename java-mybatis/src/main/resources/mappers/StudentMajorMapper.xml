@@ -14,9 +14,4 @@
         select * from studentmajor
     </select>
 
-    <!-- 根据主键查 -->
-    <select id="select" parameterType="Integer" resultType="com.yang.pojo.StudentMajor">
-        select * from studentmajor where id = #{id}
-    </select>
-
 </mapper>

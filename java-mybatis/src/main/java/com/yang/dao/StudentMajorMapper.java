@@ -13,9 +13,4 @@ public interface StudentMajorMapper {
      */
     public List<StudentMajor> selectAll();
 
-    /**
-     * 根据主键查数据,给多对一用
-     */
-    public StudentMajor select(Integer id);
-
 }

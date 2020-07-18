@@ -14,7 +14,7 @@
             </if>
         </if>
         <if test="idList != null">
-            AND id IN
+            AND id INw
             <foreach collection="idList" item="id" open="(" close=")" separator=",">
                 #{id}
             </foreach>
