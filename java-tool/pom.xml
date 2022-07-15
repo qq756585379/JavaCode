@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <jackson.version>2.8.4</jackson.version>
+        <jackson.version>2.12.6.1</jackson.version>
         <aspectj.version>1.8.9</aspectj.version>
         <org.springframework.version>4.3.2.RELEASE</org.springframework.version>
     </properties>
